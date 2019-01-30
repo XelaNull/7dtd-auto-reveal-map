@@ -13,6 +13,7 @@
 #  - Set the permissions for the first player so that they are an admin
 #  - Enable the rendering of the map, to be viewed by Alloc's Webinterface Map addon
 #  - Calculate the appropriate start and end coordinates to pass to the expect script
+#  - Call the expect script, let it auto-reveal the map
 #  - Set a touch file so that if your server reboots, this script won't run again
 #    * If you are starting a new world on an existing server, just delete the touch file /startloop.touch
 
