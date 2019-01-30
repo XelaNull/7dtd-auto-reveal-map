@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 # 7DTD Auto-Reveal Map
 #
-# This script is intended to be called from 7dtd-startloop.sh
+# This script is intended to be called from 7dtd-run-after-initial-start.sh
 # Syntax: ./7dtd-rendermap.sh <PlayerName> <StartingCoordinate> <EndingCoordinate>
 #
 # Requirement: 
