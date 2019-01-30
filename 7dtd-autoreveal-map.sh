@@ -13,7 +13,13 @@
 # world generated and the administration is connecting to the server for the first time.
 # 
 # This script will:
-#  - Loop through all locations on a map, to allow the player to "see" everywhere in the map
+#  - Break the entire map up into 140 sized blocks. 
+#  - Loop over all the block coordinates
+#      - teleport the player to a height of 200
+#      - Waits 2 seconds 
+#      - teleports the player to a height of 0
+#      - Waits 2 seconds
+#      - Teleports player to next block coordinates 
 #  - Take hours to complete.
 
 set TELNETPORT 8081;
