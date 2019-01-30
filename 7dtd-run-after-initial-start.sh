@@ -52,7 +52,7 @@ ENDING_COORD=`expr $MAPSIZE / 2 - $RADIATION_BORDER_WIDTH`;
 STARTING_COORD=`expr $ENDING_COORD * -1`
 
 # RUN THE RENDER MAP loop script
-[[ $7DTD_AUTOREVEAL_MAP == true ]] && /7dtd-autoreveal-map.sh $PLAYERNAME $STARTING_COORD $ENDING_COORD
+[[ $7DTD_AUTOREVEAL_MAP == true ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $PLAYERNAME $STARTING_COORD $ENDING_COORD
 
 # CREATE TOUCH FILE SO WE DON'T RUN THIS MORE THAN ONCE
 touch /startloop.touch
