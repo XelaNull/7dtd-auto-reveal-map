@@ -33,7 +33,7 @@ spawn telnet 127.0.0.1 $TELNETPORT; expect "Please enter password:"; send "$TELN
 for {set y $START_COORD} {$y < $END_COORD} {incr y $viewed_block_size} {
   for {set x $START_COORD} {$x < $END_COORD} {incr x $viewed_block_size} {
     incr count; send "bc-teleport entity $PLAYER $x $first_height $y\r"; sleep $sleep_one; 
-    send "bc-teleport entity $PLAYER $x $second_height $y\r"; sleep $sleep_two
+    send "bc-teleport entity $PLAYER $x $second_height $y\r"; sleep $sleep_two;
   }
 }
 send "bc-teleport entity $PLAYER 0 0 0\r"; send "exit\r"; expect eof
