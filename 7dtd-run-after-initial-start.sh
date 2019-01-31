@@ -25,6 +25,7 @@ while true
 do
   NETSTAT_CHECK=`netstat -anptu | grep LISTEN | grep 8081`
   [[ ! -z $NETSTAT_CHECK ]] && break;
+  echo "Waiting for telnet server to start"; 
   sleep 3;
 done
 
@@ -45,11 +46,12 @@ do
   echo "Looking for a Player to join the 7DTD Server.." && sleep 5
 done
 
+sleep 10
 # ENABLE MAP RENDERING OF VISITED LOCATIONS
 /7dtd-sendcmd.sh "rendermap"
-sleep 1
+sleep 2
 /7dtd-sendcmd.sh "enablerendering"
-sleep 1
+sleep 2
 # MAKE FIRST PLAYER AN ADMIN
 /7dtd-sendcmd.sh "admin add $PLAYERNAME 0"
 sleep 30
