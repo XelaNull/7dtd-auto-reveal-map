@@ -28,11 +28,12 @@ set PLAYER [lindex $argv 0];
 set START_COORD [lindex $argv 1];
 set END_COORD [lindex $argv 2];
 
-set timeout 5; set first_height 200; set second_height 0; set viewed_block_size 140; set sleep 2; set count 0;
+set timeout 5; set first_height 200; set second_height 0; set viewed_block_size 140; set sleep_one 1; set sleep_two 2; set count 0;
 spawn telnet 127.0.0.1 $TELNETPORT; expect "Please enter password:"; send "$TELNETPASSWORD\r";
 for {set y $START_COORD} {$y < $END_COORD} {incr y $viewed_block_size} {
   for {set x $START_COORD} {$x < $END_COORD} {incr x $viewed_block_size} {
-    incr count; send "bc-teleport entity $PLAYER $x $first_height $y\r"; sleep $sleep; send "bc-teleport entity $PLAYER $x $second_height $y\r"; sleep $sleep
+    incr count; send "bc-teleport entity $PLAYER $x $first_height $y\r"; sleep $sleep_one; 
+    send "bc-teleport entity $PLAYER $x $second_height $y\r"; sleep $sleep_two
   }
 }
 send "bc-teleport entity $PLAYER 0 0 0\r"; send "exit\r"; expect eof

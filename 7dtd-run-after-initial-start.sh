@@ -21,7 +21,7 @@
 [[ -f /startloop.touch ]] && exit
 
 # DELAY START TO GIVE 7DTD SERVER A CHANCE TO START
-sleep 30;
+sleep 60;
 
 # ONLY SET VARIABLES IF THEY DONT ALREADY EXIST
 [[ -z $7DTD_AUTOREVEAL_MAP ]] && export 7DTD_AUTOREVEAL_MAP=true
@@ -41,21 +41,23 @@ do
 done
 
 # ENABLE MAP RENDERING OF VISITED LOCATIONS
-/7dtd-sendcmd.sh "rendermap\renablerendering\r"
-
+/7dtd-sendcmd.sh "rendermap\r"
+sleep 1
+/7dtd-sendcmd.sh "enablerendering\r"
+sleep 1
 # MAKE FIRST PLAYER AN ADMIN
 /7dtd-sendcmd.sh "admin add $PLAYERNAME 0\r"
 
 # CALCULATE START/STOP COORDINATES BASED ON MAP SIZE
 MAPSIZE=`grep 'name="WorldGenSize"' $INSTALL_DIR/serverconfig.xml | awk '{print $3'} | cut -d'"' -f2`
-echo "MAPSIZE: $MAPSIZE / 2 - $RADIATION_BORDER_WIDTH=";
+#echo "MAPSIZE: $MAPSIZE / 2 - $RADIATION_BORDER_WIDTH=";
 ENDING_COORD=`expr $MAPSIZE / 2 - $RADIATION_BORDER_WIDTH`;
-echo "ENDING_COORD: $ENDING_COORD"; 
+#echo "ENDING_COORD: $ENDING_COORD"; 
 STARTING_COORD=`expr $ENDING_COORD \* -1`
-echo "STARTING_COORD: $STARTING_COORD";
+#echo "STARTING_COORD: $STARTING_COORD";
 
 # RUN THE RENDER MAP loop script
-[[ $7DTD_AUTOREVEAL_MAP == true ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $PLAYERNAME $STARTING_COORD $ENDING_COORD
+[[ $7DTD_AUTOREVEAL_MAP ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $PLAYERNAME $STARTING_COORD $ENDING_COORD
 
 # CREATE TOUCH FILE SO WE DON'T RUN THIS MORE THAN ONCE
 touch /startloop.touch
