@@ -28,6 +28,7 @@ do
   echo "Waiting for telnet server to start"; 
   sleep 3;
 done
+sleep 5; # Sleep an extra 5 seconds to make sure the telnet server truly has started
 
 # ONLY SET VARIABLES IF THEY DONT ALREADY EXIST
 [[ -z $7DTD_AUTOREVEAL_MAP ]] && export 7DTD_AUTOREVEAL_MAP=true
@@ -54,7 +55,7 @@ sleep 2
 sleep 2
 # MAKE FIRST PLAYER AN ADMIN
 /7dtd-sendcmd.sh "admin add $PLAYERNAME 0"
-sleep 30
+sleep 20
 
 # CALCULATE START/STOP COORDINATES BASED ON MAP SIZE
 MAPSIZE=`grep 'name="WorldGenSize"' $INSTALL_DIR/serverconfig.xml | awk '{print $3'} | cut -d'"' -f2`
