@@ -21,7 +21,12 @@
 [[ -f /startloop.touch ]] && exit
 
 # DELAY START TO GIVE 7DTD SERVER A CHANCE TO START
-sleep 60;
+while true
+do
+  NETSTAT_CHECK=`netstat -anptu | grep LISTEN | grep 8081`
+  [[ ! -z $NETSTAT_CHECK ]] && break;
+  sleep 3;
+done
 
 # ONLY SET VARIABLES IF THEY DONT ALREADY EXIST
 [[ -z $7DTD_AUTOREVEAL_MAP ]] && export 7DTD_AUTOREVEAL_MAP=true
@@ -41,12 +46,13 @@ do
 done
 
 # ENABLE MAP RENDERING OF VISITED LOCATIONS
-/7dtd-sendcmd.sh "rendermap\r"
+/7dtd-sendcmd.sh "rendermap"
 sleep 1
-/7dtd-sendcmd.sh "enablerendering\r"
+/7dtd-sendcmd.sh "enablerendering"
 sleep 1
 # MAKE FIRST PLAYER AN ADMIN
-/7dtd-sendcmd.sh "admin add $PLAYERNAME 0\r"
+/7dtd-sendcmd.sh "admin add $PLAYERNAME 0"
+sleep 30
 
 # CALCULATE START/STOP COORDINATES BASED ON MAP SIZE
 MAPSIZE=`grep 'name="WorldGenSize"' $INSTALL_DIR/serverconfig.xml | awk '{print $3'} | cut -d'"' -f2`
