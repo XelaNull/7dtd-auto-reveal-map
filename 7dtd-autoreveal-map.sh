@@ -2,7 +2,7 @@
 # 7DTD Auto-Reveal Map
 #
 # This script is intended to be called from 7dtd-run-after-initial-start.sh
-# Syntax: ./7dtd-rendermap.sh <PlayerName> <StartingCoordinate> <EndingCoordinate>
+# Syntax: ./7dtd-rendermap.sh <TelnetPort> <TelnetPassword> <PlayerName> <StartingCoordinate> <EndingCoordinate>
 #
 # Requirement: 
 #  - Alloc's Fixes Mods installed to server
@@ -22,11 +22,11 @@
 #      - Teleports player to next block coordinates 
 #  - Take hours to complete.
 
-set TELNETPORT 8081;
-set TELNETPASSWORD sanity;
-set PLAYER [lindex $argv 0];
-set START_COORD [lindex $argv 1];
-set END_COORD [lindex $argv 2];
+set TELNETPORT [lindex $argv 0];
+set TELNETPASSWORD [lindex $argv 1];
+set PLAYER [lindex $argv 2];
+set START_COORD [lindex $argv 3];
+set END_COORD [lindex $argv 4];
 
 set timeout 5; set first_height 200; set second_height 0; set viewed_block_size 140; set sleep_one 1; set sleep_two 2; set count 0;
 spawn telnet 127.0.0.1 $TELNETPORT; expect "Please enter password:"; send "$TELNETPASSWORD\r";

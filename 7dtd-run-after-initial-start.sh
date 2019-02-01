@@ -7,6 +7,8 @@
 #
 # This script is inteded to be run on a brand new 7DTD server that just has had its
 # world generated and the administration is connecting to the server for the first time.
+#
+# Syntax: ./7dtd-run-after-initial-start.sh <absolute_path_to_7dtd_game_install_directory>
 # 
 # This script will:
 #  - Loop until the first player joins the server.
@@ -20,6 +22,12 @@
 # ONLY RUN THIS SCRIPT IF WE HAVENT RUN IT BEFORE
 [[ -f /startloop.touch ]] && exit
 
+# ENSURE WE RECEIVED A VALID DIRECTORY PATH
+if [[ ! -d "$1" ]]; then
+  echo "ERROR: Please provide a valid path to your 7DTD game installation directory.";
+  exit 1;
+fi
+
 # DELAY START TO GIVE 7DTD SERVER A CHANCE TO START
 while true
 do
@@ -32,10 +40,12 @@ sleep 5; # Sleep an extra 5 seconds to make sure the telnet server truly has sta
 
 # ONLY SET VARIABLES IF THEY DONT ALREADY EXIST
 [[ -z $7DTD_AUTOREVEAL_MAP ]] && export 7DTD_AUTOREVEAL_MAP=true
-[[ -z $INSTALL_DIR ]] && export INSTALL_DIR=/data/7DTD
+[[ ! -z $1 ]] && export INSTALL_DIR=$1
 # The radiation border width is customizable so that you don't die while traversing the first or last row.
 # Set this value too low, you will die.
 export RADIATION_BORDER_WIDTH=350
+export TELNETPORT=`grep 'name="TelnetPort"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cud -d'"' -f2`;
+export TELNETPASSWORD=`grep 'name="TelnetPassword"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cud -d'"' -f2`;
 
 # LOOP UNTIL FIRST PLAYER JOINS SERVER
 while true
@@ -66,7 +76,7 @@ STARTING_COORD=`expr $ENDING_COORD \* -1`
 #echo "STARTING_COORD: $STARTING_COORD";
 
 # RUN THE RENDER MAP loop script
-[[ $7DTD_AUTOREVEAL_MAP ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $PLAYERNAME $STARTING_COORD $ENDING_COORD
+[[ $7DTD_AUTOREVEAL_MAP ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $TELNETPORT \"$TELNETPASSWORD\" \"$PLAYERNAME\" $STARTING_COORD $ENDING_COORD
 
 # CREATE TOUCH FILE SO WE DON'T RUN THIS MORE THAN ONCE
 touch /startloop.touch
