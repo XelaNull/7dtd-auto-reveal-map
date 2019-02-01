@@ -44,8 +44,8 @@ sleep 5; # Sleep an extra 5 seconds to make sure the telnet server truly has sta
 # The radiation border width is customizable so that you don't die while traversing the first or last row.
 # Set this value too low, you will die.
 export RADIATION_BORDER_WIDTH=350
-export TELNETPORT=`grep 'name="TelnetPort"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cud -d'"' -f2`;
-export TELNETPASSWORD=`grep 'name="TelnetPassword"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cud -d'"' -f2`;
+export TELNETPORT=`grep 'name="TelnetPort"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cut -d'"' -f2`;
+export TELNETPASSWORD=`grep 'name="TelnetPassword"' $INSTALL_DIR/serverconfig.xml | awk '{print \$3}' | cut -d'"' -f2`;
 
 # LOOP UNTIL FIRST PLAYER JOINS SERVER
 while true
