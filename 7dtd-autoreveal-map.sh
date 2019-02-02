@@ -29,7 +29,10 @@ set START_COORD [lindex $argv 3];
 set END_COORD [lindex $argv 4];
 
 set timeout 5; set first_height 200; set second_height 0; set viewed_block_size 140; set sleep_one 1; set sleep_two 2; set count 0;
-spawn telnet 127.0.0.1 $TELNETPORT; expect "Please enter password:"; send "$TELNETPASSWORD\r";
+spawn telnet 127.0.0.1 $TELNETPORT; 
+expect "Please enter password:"; 
+send "sanity\r";
+send_user "Teleporting player across the map";
 for {set y $START_COORD} {$y < $END_COORD} {incr y $viewed_block_size} {
   for {set x $START_COORD} {$x < $END_COORD} {incr x $viewed_block_size} {
     incr count; send "bc-teleport entity $PLAYER $x $first_height $y\r"; sleep $sleep_one; 
