@@ -20,7 +20,7 @@
 #    * If you are starting a new world on an existing server, just delete the touch file /startloop.touch
 
 # ONLY RUN THIS SCRIPT IF WE HAVENT RUN IT BEFORE
-[[ -f /startloop.touch ]] && exit
+# [[ -f /startloop.touch ]] && exit
 
 # ENSURE WE RECEIVED A VALID DIRECTORY PATH
 if [[ ! -d "$1" ]]; then
@@ -79,4 +79,4 @@ STARTING_COORD=`expr $ENDING_COORD \* -1`
 [[ $7DTD_AUTOREVEAL_MAP ]] && /7dtd-auto-reveal-map/7dtd-autoreveal-map.sh $TELNETPORT \"$TELNETPASSWORD\" \"$PLAYERNAME\" $STARTING_COORD $ENDING_COORD
 
 # CREATE TOUCH FILE SO WE DON'T RUN THIS MORE THAN ONCE
-touch /startloop.touch
+# touch /startloop.touch
