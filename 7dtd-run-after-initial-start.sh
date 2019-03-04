@@ -59,12 +59,12 @@ done
 
 sleep 10
 # ENABLE MAP RENDERING OF VISITED LOCATIONS
-/7dtd-sendcmd.sh "rendermap"
+/7dtd-sendcmd.php "rendermap"
 sleep 2
-/7dtd-sendcmd.sh "enablerendering"
+/7dtd-sendcmd.php "enablerendering"
 sleep 2
 # MAKE FIRST PLAYER AN ADMIN
-/7dtd-sendcmd.sh "admin add $PLAYERNAME 0"
+/7dtd-sendcmd.php "admin add $PLAYERNAME 0"
 sleep 20
 
 # CALCULATE START/STOP COORDINATES BASED ON MAP SIZE
